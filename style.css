@@ -48,3 +48,37 @@
     border: none;
     cursor: pointer;
 }
+html, body {
+     margin: 0; padding: 0; 
+}
+
+header {
+    background-color: lightskyblue;
+    padding: 1rem 2rem;
+    margin: 0px 0px 0px 0px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: blue;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 10vh;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Status Badge Styling */
+.status {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
