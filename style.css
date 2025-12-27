@@ -1,2 +1,50 @@
-/* --- Global Reset & Variables --- */
+.kanban{
+    display: flex;
+    padding: 30px;
+    width: 750px;
+    background-color: aliceblue;
+    border-radius: 8px;
+}
+.kanban *{
+    font-family: cursive;
+}
+.kanban_col{
+    flex: 1;
+}           
+.kanban_col:not(:last-child){
+    margin-right: 30px;
+}
+.kanban_col_title{
+    font-family: sans-serif;
+    margin-bottom: 20px;
+    font-size: x-large;
+    font-weight: bold;
+    color: blue;
+}
+.kanban_item_input{
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background-color: lightskyblue;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.kanban_dropzone{
+    height: 10px;
+    transition: background 0.15s, height 0.15s;
 
+}
+.kanban_dropzone_active{
+    height: 20px;
+    border-radius: 5px;
+    background-color: rgba(200, 200, 251, 0.5) ;
+}
+.kanban_add_item{
+    width: 100%;
+    padding: 10px 0;
+    font-size: medium;
+    color: black;
+    background-color: rgb(135, 206, 235, 0.7) ;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
