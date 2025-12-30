@@ -1,27 +1,28 @@
 export default class KanbanAPI{
     static getItems(columnId){
-        const column = read().find(column => column.id == column.Id);
+        const column = read().find(column => column.id == columnId);
         if (!column) {
             return [];
         }
         return column.items;  
-    }};
+    }
+};
 
 function read() {
-    const json = localStorage.getItem("Kanban-data");
+    const json = localStorage.getItem("kanban-data");
     if (!json) {
-        return[
+        return [
             {
-                id:1,
-                items:[]
+                id: 1,
+                items: []
             },
             {
-                id:2,
-                items:[]
+                id: 2,
+                items: []
             },
             {
-                id:3,
-                items:[]
+                id: 3,
+                items: []
             },
         ];
     }
