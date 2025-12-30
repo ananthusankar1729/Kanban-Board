@@ -1,6 +1,11 @@
 export default class KanbanAPI{
-
-}
+    static getItems(columnId){
+        const column = read().find(column => column.id == column.Id);
+        if (!column) {
+            return [];
+        }
+        return column.items;  
+    }};
 
 function read() {
     const json = localStorage.getItem("Kanban-data");
@@ -22,4 +27,7 @@ function read() {
     }
     return JSON.parse(json);
 }
+function save(data) {
+    localStorage.setItem("kanban-data",JSON.stringify(data));
 
+}
