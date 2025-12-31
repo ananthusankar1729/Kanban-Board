@@ -1,38 +1,59 @@
-export default class KanbanAPI{
-    static getItems(columnId){
+export default class KanbanAPI {
+    static getItems(columnId) {
         const column = read().find(column => column.id == columnId);
         if (!column) {
             return [];
         }
-        return column.items;  
+        return column.items;
     }
 
-    static insertItem(columnId, content){
+    static insertItem(columnId, content) {
         const data = read();
         const column = data.find(column => column.id == columnId);
         const item = {
-            id : Math.floor(Math.random()*100000),
+            id: Math.floor(Math.random() * 100000),
             content
         };
-        if (!column){
+        if (!column) {
             throw new Error("column doesn't exist");
         }
         column.items.push(item)
         save(data);
         return item;
     }
-    
-    static updateItem(itemId, newProps){
+
+    static updateItem(itemId, newProps) {
         const data = read();
-        const [item, currentColumn] = (()=>{
+        const [item, currentColumn] = (() => {
             for (const column of data) {
-                const item = column.items.find(item=>item.id==itemId);
-            if (item) {
-                return [item, column];
-            }
+                const item = column.items.find(item => item.id == itemId);
+                if (item) {
+                    return [item, column];
+                }
             };
         })();
-    }
+
+        if (!item) {
+            throw new Error("item not found.");
+        }
+        item.content = newProps.content === undefined ? item.content : newProps.content;
+
+        // update column and position
+        if (newProps.columnId != undefined && newProps.position != undefined) {
+            const targetColumn = data.find(column => columnId == newProps.columnId);
+
+            if (!targetColumn) {
+                throw new Error("Target column not found.");
+            }
+            // delete the item from its currentColumn 
+            currentColumn.items.splice(currentColumn.items.indexOf(item), 1);
+
+            // move item into it's new column and position 
+            targetColumn.items.splice(newProps.position, 0, item);
+        };
+        save(data);
+    };
+
 };
 
 function read() {
@@ -56,6 +77,6 @@ function read() {
     return JSON.parse(json);
 }
 function save(data) {
-    localStorage.setItem("kanban-data",JSON.stringify(data));
+    localStorage.setItem("kanban-data", JSON.stringify(data));
 
 }
