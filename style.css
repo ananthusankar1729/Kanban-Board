@@ -83,3 +83,8 @@ header {
     font-size: 0.9rem;
     font-weight: 500;
 }
+h1{
+    text-align: center;
+    color: blue;
+    font-family: Arial, Helvetica, sans-serif;
+}

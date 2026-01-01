@@ -1,6 +1,11 @@
+import Column from "./Column.js";
+
 export default class kanban{
     constructor(root){
         this.root = root;
+
+        // clear any existing static columns in the container (prevent duplicates)
+        this.root.innerHTML = "";
 
         kanban.columns().forEach(column =>{
              const columnView = new Column(column.id, column.title);

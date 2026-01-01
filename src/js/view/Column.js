@@ -1,4 +1,5 @@
-import kanban from "./kanban.js";
+import Item from "./item.js";
+import kanbanAPI from "../api/kanbanAPI.js";
 
 export default class Column{
     constructor(id, title){
@@ -6,7 +7,7 @@ export default class Column{
         this.elements.root = Column.createRoot();
         this.elements.title = this.elements.root.querySelector(".kanban_col_title");
         this.elements.items = this.elements.root.querySelector(".kanban_col_items");
-        this.elements.addItem = this.elements.root.querySelector(".kanban_additem");
+        this.elements.addItem = this.elements.root.querySelector(".kanban_add_item");
 
         this.elements.root.dataset.id = id;
         this.elements.title.textContent = title;
@@ -28,11 +29,13 @@ export default class Column{
             <div class="kanban_col_title">Not Started</div>
             <div class="kanban_col_items">
             </div>
-            <button class="kanban_add_item" type="button">+ Add</button>`).children[0]; 
+            <button class="kanban_add_item" type="button">+ Add</button>
+            </div>`).children[0]; 
     }
 
     renderItem(data){
-        
+        const item = new Item(data.id, data.content);
+        this.elements.items.appendChild(item.elements.root);
     }
 } 
 

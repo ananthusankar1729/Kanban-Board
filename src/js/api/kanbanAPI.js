@@ -68,25 +68,36 @@ export default class KanbanAPI {
 
 };
 
+function defaultData() {
+    return [
+        {
+            id: 1,
+            items: []
+        },
+        {
+            id: 2,
+            items: []
+        },
+        {
+            id: 3,
+            items: []
+        },
+    ];
+}
+
 function read() {
     const json = localStorage.getItem("kanban-data");
     if (!json) {
-        return [
-            {
-                id: 1,
-                items: []
-            },
-            {
-                id: 2,
-                items: []
-            },
-            {
-                id: 3,
-                items: []
-            },
-        ];
+        return defaultData();
     }
-    return JSON.parse(json);
+
+    try {
+        return JSON.parse(json);
+    } catch (err) {
+        console.error("Failed to parse 'kanban-data' from localStorage. Resetting to defaults.", err);
+        localStorage.removeItem("kanban-data");
+        return defaultData();
+    }
 }
 function save(data) {
     localStorage.setItem("kanban-data", JSON.stringify(data));
