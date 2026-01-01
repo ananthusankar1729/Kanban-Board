@@ -1,3 +1,5 @@
+import SyncManager from "../sync/SyncManager.js";
+
 export default class KanbanAPI {
     static getItems(columnId) {
         const column = read().find(column => column.id == columnId);
@@ -19,6 +21,8 @@ export default class KanbanAPI {
         }
         column.items.push(item)
         save(data);
+        // enqueue a sync op so changes made offline are persisted to server later
+        SyncManager.enqueue({ type: 'insert', itemId: item.id, payload: { content, columnId, position: column.items.length - 1 } });
         return item;
     }
 
@@ -52,6 +56,10 @@ export default class KanbanAPI {
             targetColumn.items.splice(newProps.position, 0, item);
         };
         save(data);
+        // enqueue update op for sync
+        const newColumnId = newProps.columnId !== undefined ? newProps.columnId : currentColumn.id;
+        const newPosition = newProps.position !== undefined ? newProps.position : currentColumn.items.indexOf(item);
+        SyncManager.enqueue({ type: 'update', itemId: item.id, payload: { content: item.content, columnId: newColumnId, position: newPosition } });
     };
     static deleteItem(itemId){
         const data = read();
@@ -61,6 +69,8 @@ export default class KanbanAPI {
 
             if (item) {
                 column.items.splice(column.items.indexOf(item), 1);
+                // enqueue delete op
+                SyncManager.enqueue({ type: 'delete', itemId: item.id });
             }
         }
         save(data);
