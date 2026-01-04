@@ -29,10 +29,4 @@ This is a single-page web app built with plain HTML, CSS, and modular JavaScript
 - Start demo server: `npm start` (server logs received sync payloads).
 - Data keys in `localStorage`: `kanban-data` and `kanban-ops-queue`.
 
-## Enabling GitHub Pages
-1. In your repository on GitHub, go to **Settings → Pages**.
-2. Under **Source** choose the `main` branch and `/ (root)` folder, then save.
-3. If you previously tried to create a file on GitHub with the same name and saw an error, that means the file already existed on the branch—edit or remove the existing file instead of creating a duplicate.
 
-## License
-MIT
